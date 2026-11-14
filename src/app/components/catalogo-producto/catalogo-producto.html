@@ -9,6 +9,17 @@
     }
   </div>
 
+  <!-- NUEVO FILTRO: Ubicado fuera de la cabecera para que sea 100% visible -->
+  <div class="filtro-categoria" style="text-align: center; margin: 20px 0; padding: 15px; background-color: #f8f9fa; border-radius: 8px; border: 1px solid #eaeaea;">
+    <label for="categoria" style="font-weight: bold; margin-right: 15px; font-size: 1.1rem; color: #333;">Buscar por Categoría:</label>
+    <select id="categoria" [(ngModel)]="categoriaSeleccionada" (change)="filtrarPorCategoria()" style="padding: 8px 15px; border-radius: 5px; min-width: 250px; font-size: 1rem; border: 1px solid #ccc; cursor: pointer;">
+      <option value="">[ Todas las Categorías ]</option>
+      @for (cat of categorias; track cat) {
+        <option [value]="cat">{{ cat | titlecase }}</option>
+      }
+    </select>
+  </div>
+
   @if (productosAux | async; as productos) {
     <div class="contenedor">
       @for (producto of productos; track producto.id) {
@@ -18,9 +29,15 @@
           </div>
 
           <div class="contenido">
-            <h3>
+            <!-- Añadido [title] para que el texto completo se vea al pasar el mouse -->
+            <h3 [title]="producto.title">
               {{ producto.title }}
             </h3>
+
+            <!-- NUEVO: Etiqueta de la categoría -->
+            <span style="font-size: 0.85em; color: #666; font-weight: bold; display: block; margin-bottom: 8px;">
+              {{ producto.category | uppercase }}
+            </span>
 
             <p class="precio">$ {{ producto.price }}</p>
 

@@ -4,6 +4,7 @@ import { MenuComponent } from '../../menu/menu.component';
 import {
   FormBuilder,
   FormGroup,
+  FormsModule,
   ReactiveFormsModule,
   Validators
 } from '@angular/forms';
@@ -12,6 +13,7 @@ import { ProductoService } from '../../services/producto-service';
 import { Producto } from '../../models/producto.model';
 import { RouterLink, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import { FichaTecnica } from '../ficha-tecnica/ficha-tecnica';
 
 import {
   ComentarioService,
@@ -19,15 +21,19 @@ import {
 } from '../../services/comentario-service';
 
 import { TokenService } from '../../security/token.service';
+import { CarritoService } from '../../services/carrito-service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-catalogo-producto-detalle',
   standalone: true,
   imports: [
     CommonModule,
+    FormsModule,
     ReactiveFormsModule,
     MenuComponent,
-    RouterLink
+    RouterLink,
+    FichaTecnica
   ],
   templateUrl: './catalogo-producto-detalle.html',
   styleUrl: './catalogo-producto-detalle.css',
@@ -35,6 +41,7 @@ import { TokenService } from '../../security/token.service';
 export class CatalogoProductoDetalle implements OnInit {
 
   productoAux!: Observable<Producto>;
+  cantidad = 1;
   comentariosAux!: Observable<Comentario[]>;
 
   idProducto: number = 0;
@@ -50,6 +57,7 @@ export class CatalogoProductoDetalle implements OnInit {
     private productoService: ProductoService,
     private comentarioService: ComentarioService,
     private tokenService: TokenService,
+    private carritoService: CarritoService,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder
   ) {
@@ -78,6 +86,21 @@ export class CatalogoProductoDetalle implements OnInit {
 
     this.nombreUsuario =
       this.tokenService.getUserNameComplete() || '';
+  }
+
+  agregarAlCarrito(producto: Producto): void {
+    const cantidad = Math.floor(Number(this.cantidad));
+    if (!cantidad || cantidad < 1) {
+      Swal.fire({ title: 'Cantidad inválida', text: 'Ingrese una cantidad mayor a 0', icon: 'warning' });
+      return;
+    }
+    this.carritoService.agregar(producto, cantidad);
+    Swal.fire({
+      title: 'Agregado al carrito',
+      text: `${cantidad} x ${producto.title}`,
+      icon: 'success',
+    });
+    this.cantidad = 1;
   }
 
   cargarComentarios(): void {

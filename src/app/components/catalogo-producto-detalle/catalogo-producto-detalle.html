@@ -46,6 +46,8 @@
         <div class="descripcion">
           <h3>Descripción</h3>
           <p>{{ producto.description }}</p>
+          <!-- Ficha del producto: SKU, colores, tallas, stock y especificaciones -->
+          <app-ficha-tecnica [idProducto]="idProducto"></app-ficha-tecnica>
         </div>
 
         <!-- Comentarios de usuarios -->
@@ -158,6 +160,14 @@
 
           </div>
 
+        </div>
+
+        <div class="agregar">
+          <label for="cantidad">Cantidad</label>
+          <input id="cantidad" type="number" min="1" [(ngModel)]="cantidad" />
+          <button class="btn-agregar" (click)="agregarAlCarrito(producto)">
+            🛒 Agregar al carrito
+          </button>
         </div>
 
         <!-- Regresar al catálogo -->

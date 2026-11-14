@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Opcion } from '../security/opcion';
 import { TokenService } from '../security/token.service';
+import { CarritoService } from '../services/carrito-service';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink, RouterModule, RouterOutlet } from '@angular/router';
@@ -28,7 +29,8 @@ export class MenuComponent implements OnInit {
   opcCRUD : Opcion[] = [];
   opcTransacciones : Opcion[] = [];
 
-  constructor(private tokenService: TokenService) {
+  constructor(private tokenService: TokenService,
+              public carritoService: CarritoService) {
     console.log("MenuComponent >>> constructor >>> " + this.tokenService.getToken());
   }
 

@@ -1,0 +1,141 @@
+@if (ficha(); as f) {
+
+  <section class="ft" aria-labelledby="ft-titulo">
+
+    <h3 id="ft-titulo">Ficha del producto</h3>
+
+    <!-- Códigos y datos generales -->
+    <div class="ft-datos">
+
+      <div class="ft-dato">
+        <span>Código (SKU)</span>
+        <strong>{{ f.detalle.sku }}</strong>
+      </div>
+
+      <div class="ft-dato">
+        <span>Condición</span>
+        <strong>{{ f.detalle.condicion }}</strong>
+      </div>
+
+      @if (f.detalle.marca) {
+        <div class="ft-dato">
+          <span>Marca</span>
+          <strong>{{ f.detalle.marca }}</strong>
+        </div>
+      }
+
+      @if (f.detalle.modelo) {
+        <div class="ft-dato">
+          <span>Modelo</span>
+          <strong>{{ f.detalle.modelo }}</strong>
+        </div>
+      }
+
+    </div>
+
+    @if (f.detalle.descripcionGeneral) {
+      <p class="ft-descripcion">{{ f.detalle.descripcionGeneral }}</p>
+    }
+
+    <!-- Colores, tallas y stock -->
+    @if (colores().length > 0) {
+
+      <div class="ft-bloque">
+
+        <p class="ft-etiqueta">
+          Color: <strong>{{ colorSeleccionado() }}</strong>
+        </p>
+
+        <div class="ft-opciones" role="group" aria-label="Colores disponibles">
+          @for (color of colores(); track color) {
+            <button
+              type="button"
+              class="ft-opcion"
+              [class.activo]="color === colorSeleccionado()"
+              [attr.aria-pressed]="color === colorSeleccionado()"
+              (click)="elegirColor(color)">
+              {{ color }}
+            </button>
+          }
+        </div>
+
+      </div>
+
+      @if (tieneTallas()) {
+
+        <div class="ft-bloque">
+
+          <p class="ft-etiqueta">
+            Talla:
+            @if (varianteSeleccionada(); as elegida) {
+              <strong>{{ elegida.talla }}</strong>
+            }
+          </p>
+
+          <div class="ft-opciones" role="group" aria-label="Tallas disponibles">
+            @for (variante of variantesDelColor(); track variante.idVariante) {
+              <button
+                type="button"
+                class="ft-opcion ft-talla"
+                [class.activo]="variante.idVariante === varianteSeleccionada()?.idVariante"
+                [class.agotado]="variante.stock <= 0"
+                [disabled]="variante.stock <= 0"
+                [attr.aria-pressed]="variante.idVariante === varianteSeleccionada()?.idVariante"
+                [attr.aria-label]="'Talla ' + variante.talla + (variante.stock <= 0 ? ', agotada' : '')"
+                (click)="elegirVariante(variante)">
+                {{ variante.talla }}
+              </button>
+            }
+          </div>
+
+        </div>
+
+      }
+
+      @if (varianteSeleccionada(); as elegida) {
+
+        <div class="ft-variante">
+
+          <p class="ft-stock"
+             [class.bajo]="elegida.stock > 0 && elegida.stock <= 5"
+             [class.agotado]="elegida.stock <= 0">
+            {{ textoStock(elegida) }}
+          </p>
+
+          <p class="ft-sku">
+            SKU de esta opción: <strong>{{ elegida.sku }}</strong>
+          </p>
+
+        </div>
+
+      }
+
+    }
+
+    <!-- Especificaciones -->
+    @if (f.atributos.length > 0) {
+
+      <h4 class="ft-subtitulo">Especificaciones</h4>
+
+      <dl class="ft-specs">
+        @for (atributo of f.atributos; track atributo.idAtributo) {
+          <div class="ft-spec">
+            <dt>{{ atributo.nombre }}</dt>
+            <dd>{{ atributo.valor }}</dd>
+          </div>
+        }
+      </dl>
+
+    }
+
+  </section>
+
+} @else if (cargando()) {
+
+  <p class="ft-aviso">Cargando ficha del producto...</p>
+
+} @else if (error()) {
+
+  <p class="ft-aviso">No se pudo cargar la ficha del producto. Inténtalo nuevamente más tarde.</p>
+
+}

@@ -20,5 +20,14 @@ export class ProductoService {
       return this.http.get<Producto>(baseUrl+ "/" + id);
     }
 
+    // categorías (strings) de FakeStore API
+    listaCategorias(): Observable<string[]> {
+      return this.http.get<string[]>(`${baseUrl}/categories`);
+    }
+
+    // productos filtrados por una categoría específica
+    listaPorCategoria(categoria: string): Observable<Producto[]> {
+      return this.http.get<Producto[]>(`${baseUrl}/category/${categoria}`);
+    }
 
 }

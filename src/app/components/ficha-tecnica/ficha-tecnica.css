@@ -1,0 +1,189 @@
+/* Mismo lenguaje visual que la página de detalle: tarjetas gris claro,
+   acento azul #2563eb y texto en tonos slate. */
+
+.ft {
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.ft h3 {
+  color: #222;
+  font-size: 22px;
+  margin: 0 0 16px;
+}
+
+.ft-subtitulo {
+  color: #1e293b;
+  font-size: 18px;
+  margin: 26px 0 12px;
+}
+
+.ft-aviso {
+  color: #64748b;
+  font-size: 14px;
+  margin-top: 24px;
+}
+
+/* Códigos y datos generales */
+.ft-datos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+}
+
+.ft-dato {
+  background: #f1f5f9;
+  padding: 12px 14px;
+  border-radius: 12px;
+}
+
+.ft-dato span {
+  display: block;
+  color: #64748b;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+.ft-dato strong {
+  color: #1e293b;
+  font-size: 15px;
+  overflow-wrap: anywhere;
+}
+
+.ft-descripcion {
+  color: #475569;
+  line-height: 1.6;
+  margin: 18px 0 0;
+  max-width: 70ch;
+}
+
+/* Colores y tallas */
+.ft-bloque {
+  margin-top: 22px;
+}
+
+.ft-etiqueta {
+  color: #475569;
+  font-size: 14px;
+  margin: 0 0 10px;
+}
+
+.ft-etiqueta strong {
+  color: #1e293b;
+}
+
+.ft-opciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.ft-opcion {
+  min-width: 48px;
+  padding: 9px 16px;
+  background: #fff;
+  color: #1e293b;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  transition: border-color .15s, background-color .15s;
+}
+
+.ft-opcion:hover:not(:disabled) {
+  border-color: #2563eb;
+}
+
+.ft-opcion.activo {
+  border-color: #2563eb;
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-weight: 600;
+}
+
+.ft-opcion:focus-visible {
+  outline: 3px solid #93c5fd;
+  outline-offset: 2px;
+}
+
+/* Talla agotada: tachada y deshabilitada */
+.ft-opcion.agotado,
+.ft-opcion:disabled {
+  background: #f1f5f9;
+  color: #94a3b8;
+  border-color: #e2e8f0;
+  text-decoration: line-through;
+  cursor: not-allowed;
+}
+
+/* Stock y SKU de la variante elegida */
+.ft-variante {
+  margin-top: 18px;
+}
+
+.ft-stock {
+  margin: 0 0 4px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #16a34a;
+}
+
+.ft-stock.bajo {
+  color: #b45309;
+}
+
+.ft-stock.agotado {
+  color: #b91c1c;
+}
+
+.ft-sku {
+  margin: 0;
+  color: #64748b;
+  font-size: 13px;
+}
+
+.ft-sku strong {
+  color: #334155;
+}
+
+/* Especificaciones */
+.ft-specs {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 0 32px;
+}
+
+.ft-spec {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.ft-spec dt {
+  color: #64748b;
+  font-size: 14px;
+}
+
+.ft-spec dd {
+  margin: 0;
+  color: #1e293b;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: right;
+}
+
+@media (max-width: 600px) {
+  .ft-spec {
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .ft-spec dd {
+    text-align: left;
+  }
+}

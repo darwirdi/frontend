@@ -406,3 +406,32 @@
 
 
 }
+
+/* Agregar al carrito */
+
+.agregar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 25px;
+}
+
+.agregar input {
+  width: 80px;
+  padding: 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+}
+
+.btn-agregar {
+  background: #16a34a;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.btn-agregar:hover {
+  background: #15803d;
+}

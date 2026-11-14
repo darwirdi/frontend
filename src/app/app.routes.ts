@@ -4,6 +4,7 @@ import { RegistroModalidad } from './components/registro-modalidad/registro-moda
 import { RegistroProveedor } from './components/registro-proveedor/registro-proveedor';
 import { CatalogoProducto } from './components/catalogo-producto/catalogo-producto';
 import { CatalogoProductoDetalle } from './components/catalogo-producto-detalle/catalogo-producto-detalle';
+import { Carrito } from './components/carrito/carrito';
 import { RegistroDocente } from './components/registro-docente/registro-docente';
 import { CrudProveedor } from './components/crud-proveedor/crud-proveedor';
 import { ConsultaProveedor } from './components/consulta-proveedor/consulta-proveedor';
@@ -30,6 +31,7 @@ export const routes: Routes = [
   // Catalogo
   { path: 'catalogoProducto', component: CatalogoProducto },
   { path: 'detalleProducto/:id', component: CatalogoProductoDetalle },
+  { path: 'carrito', component: Carrito },
 
   //Docente
   { path: 'registroDocente', component: RegistroDocente }
